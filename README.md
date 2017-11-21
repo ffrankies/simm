@@ -1,3 +1,5 @@
+[![codebeat badge](https://codebeat.co/badges/95b967fa-e486-47c2-9d71-4a4480470368)](https://codebeat.co/projects/github-com-ffrankies-simm-master)
+
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
 Below you will find some information on how to perform common tasks.<br>
