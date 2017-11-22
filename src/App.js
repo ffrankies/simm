@@ -1,21 +1,30 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+
+import Header from './components/Header';
+import FileInput from './containers/FileInput';
+import MemReferences from './containers/MemReferences';
+
+import { loadMemReferences, setMemReferences } from './utils/loadMemReferences';
 
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-    );
-  }
+    constructor(props) {
+        super(props);
+        this.state = {
+            memReferences : []
+        };
+        this.loadMemReferences = loadMemReferences.bind(this);
+        this.setMemReferences = setMemReferences.bind(this);
+    };
+
+    render() {
+        return (
+            <div className='container'>
+                <Header />
+                <FileInput loadMemReferences={this.loadMemReferences} setMemReferences={this.setMemReferences} />
+                <MemReferences memReferences={this.state.memReferences} />
+            </div>
+        );
+    };
 }
 
 export default App;
