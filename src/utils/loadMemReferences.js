@@ -1,16 +1,11 @@
 import $ from 'jquery';
-/**
- * Utilities for loading a file
- * @author Frank Wanye 
- * @since 0.0.1
- */
 
 /**
  * Loads memReferences from the given file
  * @param {function} setMemReferences - the callback function to be called on completion of ajax request
  */
 export function loadMemReferences(setMemReferences) {
-    const fileName = document.getElementById('fileName').value;
+    const fileName = document.getElementById('inputFileName').value;
     const filePath = './inputs/' + fileName;
     $.get(filePath, function(memReferences, status) {
         setMemReferences(memReferences, status); 

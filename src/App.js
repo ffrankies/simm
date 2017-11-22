@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import Header from './components/Header';
 import FileInput from './containers/FileInput';
-import MemReferences from './containers/MemReferences';
+import MemReferenceRow from './containers/MemReferenceRow';
 
 import { loadMemReferences, setMemReferences } from './utils/loadMemReferences';
 
@@ -21,7 +21,7 @@ class App extends Component {
             <div className='container'>
                 <Header />
                 <FileInput loadMemReferences={this.loadMemReferences} setMemReferences={this.setMemReferences} />
-                <MemReferences memReferences={this.state.memReferences} />
+                <MemReferenceRow memReferences={this.state.memReferences} />
             </div>
         );
     };

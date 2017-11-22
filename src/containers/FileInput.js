@@ -30,15 +30,17 @@ class FileInput extends Component {
          * https://www.w3schools.com/bootstrap/bootstrap_forms_inputs.asp
          */
         return (
-            <form className='form-inline row'>
-                <div className='form-group col-md-8'>
-                    <label htmlFor='fileName'>MemReferences File Name:</label>
-                    <input type='text' className='form-control' id='fileName' placeholder='input3a.data' />
+            <div className='form-group row'>
+                <label for='inputFileName' className='col col-form-label'>
+                    Memory Reference File:
+                </label>
+                <div className='col'>
+                    <input type='text' className='form-control' id='inputFileName' placeholder='input3a.data' />
                 </div>
-                <button type='button' className='btn btn-default col-md-4' onClick={this.handleClick}>
+                <button type='button' className='btn btn-primary col' onClick={this.handleClick}>
                     Load Memory References
                 </button>
-            </form>
+            </div>
         );
     };
 };
