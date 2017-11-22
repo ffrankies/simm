@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
+
 import MemReferenceDisplay from '../components/MemReferenceDisplay';
 import MemReferenceButtons from '../components/MemReferenceButtons';
 
+import { undoReference, nextReference, runToNextFault } from '../utils/buttonControl';
+
 /**
  * Container for interacting with memory references
+ * @since v0.0.1
  */
 class MemReferenceRow extends Component {
     /**
@@ -15,6 +19,9 @@ class MemReferenceRow extends Component {
         this.state = {
             currentReference : 0
         };
+        this.undoReference = undoReference.bind(this);
+        this.nextReference = nextReference.bind(this);
+        this.runToNextFault = runToNextFault.bind(this);
     };
 
     render() {
@@ -25,7 +32,11 @@ class MemReferenceRow extends Component {
         return (
             <div className='row'>
                 <MemReferenceDisplay memReference={memReference} />
-                <MemReferenceButtons />
+                <MemReferenceButtons 
+                    onUndo={this.undoReference}
+                    onNext={this.nextReference}
+                    onNextFault={this.runToNextFault}
+                />
             </div>
         );
     };

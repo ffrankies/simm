@@ -31,7 +31,7 @@ class FileInput extends Component {
          */
         return (
             <div className='form-group row'>
-                <label for='inputFileName' className='col col-form-label'>
+                <label htmlFor='inputFileName' className='col col-form-label'>
                     Memory Reference File:
                 </label>
                 <div className='col'>

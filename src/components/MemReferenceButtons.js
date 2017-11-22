@@ -21,13 +21,13 @@ class MemReferenceButtons extends Component {
         return (
             <div className='row'>
                 <div className='col col-sm-4 text-right'>
-                    {this.renderButton('Undo', this.props.handleUndo)}
+                    {this.renderButton('Undo', this.props.onUndo)}
                 </div>
                 <div className='col col-sm-4 text-right'>
-                    {this.renderButton('Next Reference', this.props.handleNext)}
+                    {this.renderButton('Next Reference', this.props.onNext)}
                 </div>
                 <div className='col col-sm-4 text-right'>
-                    {this.renderButton('Run to Next Fault', this.props.handleNextFault)}
+                    {this.renderButton('Run to Next Fault', this.props.onNextFault)}
                 </div>
             </div>
         );
