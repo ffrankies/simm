@@ -13,22 +13,34 @@ class PageTable {
     constructor(pageNumber) {
         this.pageList = [];
         this.maxPage = -1; // -1 when there are no pages in the page table
-        const page = new Page(pageNumber);
-        this.update(page);
+        this.insert(pageNumber);
     };
 
     /**
-     * Update the frame table with a new page.
-     * @param {Page} page - the page with which to update the page table
+     * Inserts a page into the page table, if it's not already there.
+     * @param {int} pageNumber - the number of the page to insert
+     * @return {Page} insertedPage - the page with the given frame number
      */
-    update(page) {
-        alert('Update page with number: ' + page.number);
-        while (page.number > this.maxPage) {
-            const emptyPage = new Page(this.maxPage + 1);
-            this.pageList.push(emptyPage);
+    insert(pageNumber) {
+        while (pageNumber > this.maxPage) {
             this.maxPage++;
+            const emptyPage = new Page(this.maxPage);
+            this.pageList.push(emptyPage);
         }
-        this.pageList[page.number] = page;
+        return this.pageList[pageNumber];
+    };
+
+    /**
+     * Update the page table with a new page.
+     * @param {int} pageNumber - the page with which to update the page table
+     * @param {int} frameNumber - the frame number into which the page was inserted
+     */
+    update(pageNumber, frameNumber) {
+        if (pageNumber === -1) {
+            return;
+        }
+        alert('Update page with number: ' + pageNumber);
+        this.pageList[pageNumber].updateFrame(frameNumber);
     };
 };
 

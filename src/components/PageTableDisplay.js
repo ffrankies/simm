@@ -17,9 +17,9 @@ class PageTableDisplay extends Component {
             const pages = this.props.pageTable.pageList.map((page) => 
                 <li className='list-group-item'>
                     <div className='row w-100'>
-                        <div className='col col-sm-6 text-center'>{page.number}</div>
+                        <div className='col col-sm-6 text-center'>{page.pageNumber}</div>
                         <div classname='col col-sm-6'> 
-                            Frame <span className='badge badge-dark'>{page.frame}</span>
+                            Frame <span className='badge badge-dark'>{page.frameNumber}</span>
                         </div>
                     </div>
                 </li>

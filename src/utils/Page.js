@@ -6,19 +6,19 @@
 class Page {
     /**
      * Creates a new page with the given page number.
-     * @param {int} number - the page number 
+     * @param {int} pageNumber - the page number 
      */
-    constructor(number) {
-        this.number = number;
-        this.frame = -1; // -1 when the page is not in the frame table
+    constructor(pageNumber) {
+        this.pageNumber = pageNumber;
+        this.frameNumber = -1; // -1 when the page is not in the frame table
     };
 
     /**
      * Updates the frame number into which the page has been loaded.
-     * @param {int} frame - the frame into which the page has been loaded
+     * @param {int} frameNumber - the frame into which the page has been loaded
      */
-    updateFrame(frame) {
-        this.frame = frame;
+    updateFrame(frameNumber) {
+        this.frameNumber = frameNumber;
     };
 };
 

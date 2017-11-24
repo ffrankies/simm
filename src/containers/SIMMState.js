@@ -4,6 +4,7 @@ import MemReferenceRow from './MemReferenceRow';
 import MemState from './MemState';
 
 import PageTable from '../utils/PageTable';
+import FrameTable from '../utils/FrameTable';
 import { undoReference, nextReference, runToNextFault } from '../utils/buttonControl';
 // import Page from '../utils/Page';
 
@@ -25,30 +26,10 @@ class SIMMState extends Component {
             currentPage : 'N/A',
             swapSpace : {},
             pageTable : [],
-            frameTable : []
+            frameTable : new FrameTable()
         };
         this.bindFunctions();
     };
-    
-    /**
-     * Updates the current memory reference.
-     */
-    // updateMemReference() {
-    //     const memReference = this.props.memReferences[this.state.currentReference];
-    //     const splitReference = memReference.split(':');
-    //     const process = splitReference[0];
-    //     const page = splitReference[1];
-    //     this.setState({
-    //         currentProcess : process,
-    //         currentPage : page
-    //     });
-    // };
-
-    // splitReference(references, refNum) {
-    //     const memReference = references[refNum];
-    //     const splitReference = memReference.split(':');
-
-    // };
 
     resetSIMMState(nextProps) {
         // alert('resetting SIMMState');
@@ -56,13 +37,17 @@ class SIMMState extends Component {
         var [processNumber, pageNumber] = memReference.split(':');
         pageNumber = parseInt(pageNumber, 2);
         const pageTable = new PageTable(pageNumber);
+        const frameTable = new FrameTable();
+        const [frameNumber, displacedPageNumber] = frameTable.update(pageTable.pageList[0]);
+        pageTable.update(displacedPageNumber, -1); // Displaced page no longer has a frame
+        pageTable.update(pageNumber, frameNumber); // Inserted page is now at <frameNumber>
         this.setState({
             currentReference : 0,
             currentProcess : processNumber,
             currentPage : pageNumber,
             swapSpace : {},
             pageTable : pageTable,
-            frameTable : []
+            frameTable : frameTable
         });
     };
 
@@ -93,7 +78,7 @@ class SIMMState extends Component {
                     onNext={this.nextReference}
                     onNextFault={this.runToNextFault}
                 />
-                <MemState pageTable={this.state.pageTable}/>
+                <MemState pageTable={this.state.pageTable} frameTable={this.state.frameTable} />
             </div>
         );
     };

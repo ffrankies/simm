@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
 
 import PageTableDisplay from '../components/PageTableDisplay';
+import FrameTableDisplay from '../components/FrameTableDisplay';
 
+/**
+ * Displays the current memory state of the simulator.
+ */
 class MemState extends Component {
     render() {
         return (
-            <div className='row'>
+            <div className='row mt-3'>
                 <PageTableDisplay pageTable={this.props.pageTable} />
-                <div className='col'>Placeholder for Frame Table</div>
+                <FrameTableDisplay frameTable={this.props.frameTable} />
             </div>
         );
     };
