@@ -8,13 +8,14 @@ import React, { Component } from 'react';
 class FrameTableDisplay extends Component {
     /**
      * Renders the list of frames in the frame table.
+     * @return {ul} frameList - the list of frames in the frame table
      */
     renderFrameTable() {
         const frames = this.props.frameTable.frameList.map((frame) => 
             <li className='list-group-item'>
                 <div className='row w-100'>
-                    <div className='col col-sm-4 text-center'>{frame.frameNumber}</div>
-                    <div classname='col col-sm-4'> 
+                    <div className='col col-sm-4'>{frame.frameNumber}</div>
+                    <div className='col col-sm-4'> 
                         Page <span className='badge badge-dark'>{frame.pageNumber}</span>
                     </div>
                     <div className='col col-sm-4'>
