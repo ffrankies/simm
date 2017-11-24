@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 
 /**
- * The file input form
+ * The file input form allows a user to load memory references from a file.
+ * @since v0.0.1
+ * @author Frank Wanye
  */
 class FileInput extends Component {
     /**

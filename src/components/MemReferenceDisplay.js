@@ -11,14 +11,13 @@ class MemReferenceDisplay extends Component {
      * @return {<h2 />} referenceDisplay - the display for the reference  
      */
     renderReference(memReference) {
-        const splitReference = memReference.split(':');
         return (
             <div className='row h-100'>
                 <div className='col h4 h-100'>
-                    Process: <span className='badge badge-secondary'>{splitReference[0]}</span>
+                    Process: <span className='badge badge-secondary'>{this.props.currentProcess}</span>
                 </div>
                 <div className='col h4 h-100'>
-                    Page: <span className='badge badge-secondary'>{splitReference[1]}</span>
+                    Page: <span className='badge badge-secondary'>{this.props.currentPage}</span>
                 </div>
             </div>
         );

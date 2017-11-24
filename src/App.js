@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 
 import Header from './components/Header';
 import FileInput from './containers/FileInput';
-import MemReferenceRow from './containers/MemReferenceRow';
+// import MemReferenceRow from './containers/MemReferenceRow';
+import SIMMState from './containers/SIMMState';
 
 import { loadMemReferences, setMemReferences } from './utils/loadMemReferences';
 
@@ -10,8 +11,11 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            memReferences : []
+            memReferences : [] //,
+            // currentProcess : 'N/A',
+            // currentPage : 'N/A'
         };
+        // this.updateMemReference = updateMemReference.bind(this);
         this.loadMemReferences = loadMemReferences.bind(this);
         this.setMemReferences = setMemReferences.bind(this);
     };
@@ -21,7 +25,7 @@ class App extends Component {
             <div className='container'>
                 <Header />
                 <FileInput loadMemReferences={this.loadMemReferences} setMemReferences={this.setMemReferences} />
-                <MemReferenceRow memReferences={this.state.memReferences} />
+                <SIMMState memReferences={this.state.memReferences}/>
             </div>
         );
     };
