@@ -34,7 +34,6 @@ class FrameTable {
      *  - {int} displacedPageNumber - the page that got displaced by the
      */
     update(page) {
-        alert('Update frame table with page with number: ' + page.pageNumber);
         this.clock++;
         var frameNumber = page.frameNumber;
         var displacedPageNumber = -1;

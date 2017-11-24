@@ -12,7 +12,7 @@ class FrameTableDisplay extends Component {
      */
     renderFrameTable() {
         const frames = this.props.frameTable.frameList.map((frame) => 
-            <li className='list-group-item'>
+            <li className='list-group-item p-1'>
                 <div className='row w-100'>
                     <div className='col col-sm-4'>{frame.frameNumber}</div>
                     <div className='col col-sm-4'> 

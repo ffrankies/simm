@@ -39,7 +39,6 @@ class PageTable {
         if (pageNumber === -1) {
             return;
         }
-        alert('Update page with number: ' + pageNumber);
         this.pageList[pageNumber].updateFrame(frameNumber);
     };
 };
