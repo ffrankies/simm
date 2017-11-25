@@ -32,8 +32,8 @@ class FileInput extends Component {
          * https://www.w3schools.com/bootstrap/bootstrap_forms_inputs.asp
          */
         return (
-            <div className='form-group row'>
-                <label htmlFor='inputFileName' className='col col-form-label'>
+            <div className='form-group form-row my-1 mx-0'>
+                <label htmlFor='inputFileName' className='col col-form-label px-0'>
                     Memory Reference File:
                 </label>
                 <div className='col'>

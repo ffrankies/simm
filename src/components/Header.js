@@ -11,9 +11,11 @@ import React, { Component } from 'react';
 class Header extends Component {
     render() {
         return (
-            <div className='page-header'>
-                <h1>SIMM - A Memory Management Simulator</h1>
-            </div>
+            <nav className='navbar navbar-light bg-light w-75 mx-auto'>
+                <h1 className='navbar-brand mb-0 mx-1'>
+                    <strong>SIMM - A Memory Management Simulator</strong>
+                </h1>
+            </nav>
         );
     };
 };

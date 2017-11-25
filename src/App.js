@@ -22,10 +22,12 @@ class App extends Component {
 
     render() {
         return (
-            <div className='container'>
+            <div className='bg-light'>
                 <Header />
-                <FileInput loadMemReferences={this.loadMemReferences} setMemReferences={this.setMemReferences} />
-                <SIMMState memReferences={this.state.memReferences}/>
+                <div className='container'>
+                    <FileInput loadMemReferences={this.loadMemReferences} setMemReferences={this.setMemReferences} />
+                    <SIMMState memReferences={this.state.memReferences}/>
+                </div>
             </div>
         );
     };
