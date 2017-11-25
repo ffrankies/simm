@@ -6,11 +6,13 @@
 class Frame {
     /**
      * Creates a new frame with the given page number.
-     * @param {int} frameNumber - the frame number
-     * @param {int} pageNumber - the page number. When it's -1, no page is in the frame
-     * @param {int} clock - the last time the frame was referenced 
+     * @param {string} processNumber - the process number that owns the page in this frame
+     * @param {number} frameNumber - the frame number
+     * @param {number} pageNumber - the page number. When it's -1, no page is in the frame
+     * @param {number} clock - the last time the frame was referenced 
      */
-    constructor(frameNumber, pageNumber, clock) {
+    constructor(processNumber, frameNumber, pageNumber, clock) {
+        this.processNumber = processNumber;
         this.frameNumber = frameNumber;
         this.pageNumber = pageNumber;
         this.clock = clock;
@@ -18,10 +20,12 @@ class Frame {
 
     /**
      * Updates the page number that has been loaded into the frame.
-     * @param {int} pageNumber - the page that has been placed into the frame
-     * @param {int} clock - the time at which the frame was referenced
+     * @param {string} processNumber - the process number that owns the page being loaded into this frame
+     * @param {number} pageNumber - the page that has been placed into the frame
+     * @param {number} clock - the time at which the frame was referenced
      */
-    updateFrame(pageNumber, clock) {
+    update(processNumber, pageNumber, clock) {
+        this.processNumber = processNumber;
         this.pageNumber = pageNumber;
         this.clock = clock;
     };
@@ -29,7 +33,7 @@ class Frame {
     /**
      * Checks if the frame is empty. This is done by checking the pageNumber field. If it's -1, the frame is considered
      * empty.
-     * @return {bool} isEmpty - true if it's empty, false otherwise
+     * @return {boolean} isEmpty - true if it's empty, false otherwise
      */
     isEmpty() {
         return this.pageNumber === -1;

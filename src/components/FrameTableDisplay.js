@@ -12,13 +12,16 @@ class FrameTableDisplay extends Component {
      */
     renderFrameTable() {
         const frames = this.props.frameTable.frameList.map((frame) => 
-            <li className='list-group-item p-1'>
+            <li className='list-group-item p-1' key={frame.frameNumber.toString()}>
                 <div className='row w-100'>
-                    <div className='col col-sm-4'>{frame.frameNumber}</div>
-                    <div className='col col-sm-4'> 
+                    <div className='col col-sm-3'>{frame.frameNumber}</div>
+                    <div className='col col-sm-3'> 
+                        Process <span className='badge badge-dark'>{frame.processNumber}</span>
+                    </div>
+                    <div className='col col-sm-3'> 
                         Page <span className='badge badge-dark'>{frame.pageNumber}</span>
                     </div>
-                    <div className='col col-sm-4'>
+                    <div className='col col-sm-3'>
                         Clock <span className='badge badge-dark'>{frame.clock}</span>
                     </div>
                 </div>

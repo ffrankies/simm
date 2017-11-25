@@ -21,7 +21,7 @@ class FrameTable {
      */
     fillPageTable() {
         for (var i = 0; i < this.maxSize; ++i) {
-            const frame = new Frame(i, -1, this.clock);
+            const frame = new Frame(-1, i, -1, this.clock);
             this.frameList.push(frame);
         }
     };
@@ -29,39 +29,35 @@ class FrameTable {
     /**
      * Update the frame table with a new page.
      * @param {Page} page - the page with which to update the frame table
-     * @return {array} 
-     *  - {int} frameNumber - the frame number into which the page was inserted
-     *  - {int} displacedPageNumber - the page that got displaced by the
+     * @return {Frame} displacedFrame - the frame that was displaced by the incoming page 
      */
     update(page) {
         this.clock++;
-        var frameNumber = page.frameNumber;
-        var displacedPageNumber = -1;
-        if (frameNumber === -1) { // If page is not in frame table
-            frameNumber = this.findEmptyFrame();
-            if (frameNumber === -1) {
-                const replacedFrame = this.findLRUFrame();
-                frameNumber = replacedFrame.frameNumber;
-                displacedPageNumber = replacedFrame.pageNumber;
+        var displacedFrame = new Frame('N/A', page.frameNumber, -1, -1);
+        if (page.frameNumber === -1) { // If page is not in frame table
+            displacedFrame = this.findEmptyFrame();
+            if (displacedFrame.frameNumber === -1) {
+                displacedFrame = this.findLRUFrame();
             }        
         }
-        this.frameList[frameNumber] = new Frame(frameNumber, page.pageNumber, this.clock);
-        return [frameNumber, displacedPageNumber];
+        this.frameList[displacedFrame.frameNumber].update(page.processNumber, page.pageNumber, this.clock);
+        return displacedFrame;
     };
     
     /**
      * Finds the index of the first empty frame in the frameList.
-     * @return {int} emptyFrameIndex - the index of the first empty frame. If there are no empty frames, returns -1
+     * @return {Frame} emptyFrame - the empty frame. If there are no empty frames, returns a Frame with a 
+     *                              frameNumber of -1
      */
     findEmptyFrame() {
-        var emptyFrameIndex = -1;
+        var emptyFrame = new Frame('N/A', -1, -1, -1);
         for (var i = 0; i < this.maxSize; ++i) {
             if (this.frameList[i].isEmpty()) {
-                emptyFrameIndex = i;
+                emptyFrame = this.frameList[i];
                 break;
             }
         }
-        return emptyFrameIndex;
+        return emptyFrame;
     };
 
     /**

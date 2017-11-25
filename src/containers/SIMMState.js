@@ -33,21 +33,21 @@ class SIMMState extends Component {
 
     resetSIMMState(nextProps) {
         // alert('resetting SIMMState');
-        const memReference = nextProps.memReferences[0];
-        var [processNumber, pageNumber] = memReference.split(':');
-        pageNumber = parseInt(pageNumber, 2);
-        const pageTable = new PageTable(pageNumber);
-        const frameTable = new FrameTable();
-        const [frameNumber, displacedPageNumber] = frameTable.update(pageTable.pageList[0]);
-        pageTable.update(displacedPageNumber, -1); // Displaced page no longer has a frame
-        pageTable.update(pageNumber, frameNumber); // Inserted page is now at <frameNumber>
+        // const memReference = nextProps.memReferences[0];
+        // var [processNumber, pageNumber] = memReference.split(':');
+        // pageNumber = parseInt(pageNumber, 2);
+        // const pageTable = new PageTable(pageNumber);
+        // const frameTable = new FrameTable();
+        // const [frameNumber, displacedPageNumber] = frameTable.update(pageTable.pageList[0]);
+        // pageTable.update(displacedPageNumber, -1); // Displaced page no longer has a frame
+        // pageTable.update(pageNumber, frameNumber); // Inserted page is now at <frameNumber>
         this.setState({
-            currentReference : 0,
-            currentProcess : processNumber,
-            currentPage : pageNumber,
+            currentReference : -1,
+            currentProcess : 'N/A',
+            currentPage : 'N/A',
             swapSpace : {},
-            pageTable : pageTable,
-            frameTable : frameTable
+            pageTable : new PageTable(),
+            frameTable : new FrameTable()
         });
     };
 
@@ -78,7 +78,10 @@ class SIMMState extends Component {
                     onNext={this.nextReference}
                     onNextFault={this.runToNextFault}
                 />
-                <MemState pageTable={this.state.pageTable} frameTable={this.state.frameTable} />
+                <MemState 
+                    pageTable={this.state.swapSpace[this.state.currentProcess]} 
+                    frameTable={this.state.frameTable} 
+                />
             </div>
         );
     };
