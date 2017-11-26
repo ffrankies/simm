@@ -81,6 +81,7 @@ class SIMMState extends Component {
                 <MemState 
                     pageTable={this.state.swapSpace[this.state.currentProcess]} 
                     frameTable={this.state.frameTable} 
+                    swapSpace={this.state.swapSpace}
                 />
             </div>
         );

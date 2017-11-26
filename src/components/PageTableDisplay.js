@@ -34,7 +34,7 @@ class PageTableDisplay extends Component {
      */
     render() {
         return (
-            <div className='col col-md-4'>
+            <div className='col col-md-3'>
                 <div className='card text-center'>
                     <div className='card-header'>Page Table</div>
                     {this.renderPageTable()}

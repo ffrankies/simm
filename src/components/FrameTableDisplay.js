@@ -14,8 +14,8 @@ class FrameTableDisplay extends Component {
         const frames = this.props.frameTable.frameList.map((frame) => 
             <li className='list-group-item p-1' key={frame.frameNumber.toString()}>
                 <div className='row w-100'>
-                    <div className='col col-sm-3'>{frame.frameNumber}</div>
-                    <div className='col col-sm-3'> 
+                    <div className='col col-sm-2'>{frame.frameNumber}</div>
+                    <div className='col col-sm-4'> 
                         Process <span className='badge badge-dark'>{frame.processNumber}</span>
                     </div>
                     <div className='col col-sm-3'> 
@@ -36,7 +36,7 @@ class FrameTableDisplay extends Component {
      */
     render() {
         return (
-            <div className='col col-md-8'>
+            <div className='col col-md-5'>
                 <div className='card text-center'>
                     <div className='card-header'>Frame Table</div>
                     {this.renderFrameTable()}
