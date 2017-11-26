@@ -13,7 +13,9 @@ class PageTable {
     constructor(processNumber) {
         this.processNumber = processNumber;
         this.pageList = [];
-        this.maxPage = -1; // -1 when there are no pages in the page table
+        this.numPages = -1; // -1 when there are no pages in the page table
+        this.numReferences = 0;
+        this.numPageFaults = 0;
     };
 
     /**
@@ -22,9 +24,9 @@ class PageTable {
      * @return {Page} insertedPage - the page with the given frame number
      */
     insert(pageNumber) {
-        while (pageNumber > this.maxPage) {
-            this.maxPage++;
-            const emptyPage = new Page(this.processNumber, this.maxPage);
+        while (pageNumber > this.numPages) {
+            this.numPages++;
+            const emptyPage = new Page(this.processNumber, this.numPages);
             this.pageList.push(emptyPage);
         }
         return this.pageList[pageNumber];
@@ -38,6 +40,12 @@ class PageTable {
     update(pageNumber, frameNumber) {
         if (pageNumber === -1) {
             return;
+        }
+        if (frameNumber !== -1) {
+            this.numReferences++;
+            if (frameNumber !== this.pageList[pageNumber].frameNumber) {
+                this.numPageFaults++;
+            }
         }
         this.pageList[pageNumber].updateFrame(frameNumber);
     };
