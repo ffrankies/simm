@@ -3,10 +3,8 @@ import React, { Component } from 'react';
 import MemReferenceRow from './MemReferenceRow';
 import MemState from './MemState';
 
-import PageTable from '../utils/PageTable';
 import FrameTable from '../utils/FrameTable';
 import { undoReference, nextReference, runToNextFault } from '../utils/buttonControl';
-// import Page from '../utils/Page';
 
 /**
  * Renders the memory management simulator's state.
@@ -21,47 +19,45 @@ class SIMMState extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            currentReference : 0,
+            currentReference : -1,
             currentProcess : 'N/A',
             currentPage : 'N/A',
             swapSpace : {},
-            pageTable : [],
             frameTable : new FrameTable()
         };
         this.bindFunctions();
     };
 
-    resetSIMMState(nextProps) {
-        // alert('resetting SIMMState');
-        // const memReference = nextProps.memReferences[0];
-        // var [processNumber, pageNumber] = memReference.split(':');
-        // pageNumber = parseInt(pageNumber, 2);
-        // const pageTable = new PageTable(pageNumber);
-        // const frameTable = new FrameTable();
-        // const [frameNumber, displacedPageNumber] = frameTable.update(pageTable.pageList[0]);
-        // pageTable.update(displacedPageNumber, -1); // Displaced page no longer has a frame
-        // pageTable.update(pageNumber, frameNumber); // Inserted page is now at <frameNumber>
-        this.setState({
-            currentReference : -1,
-            currentProcess : 'N/A',
-            currentPage : 'N/A',
-            swapSpace : {},
-            pageTable : new PageTable(),
-            frameTable : new FrameTable()
-        });
-    };
-
+    /**
+     * Binds utility functions to this object
+     */
     bindFunctions() {
         this.undoReference = undoReference.bind(this);
         this.nextReference = nextReference.bind(this);
         this.runToNextFault = runToNextFault.bind(this);
     };
 
+    /**
+     * Resets the SIMM state if new references are loaded in.
+     * @param {object} nextProps - The incoming properties
+     */
     componentWillReceiveProps(nextProps) {
-        // alert(nextProps.memReferences);
         if (nextProps.memReferences != null && nextProps.memReferences.length > 0) {
             this.resetSIMMState(nextProps);
         }
+    };
+    
+    /**
+     * Resets the SIMM state.
+     */
+    resetSIMMState() {
+        this.setState({
+            currentReference : -1,
+            currentProcess : 'N/A',
+            currentPage : 'N/A',
+            swapSpace : {},
+            frameTable : new FrameTable()
+        });
     };
 
     /**

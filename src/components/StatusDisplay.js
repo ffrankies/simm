@@ -40,7 +40,7 @@ class StatusDisplay extends Component {
             totalFaults += pageTable.numPageFaults;
         });
         return (
-            <div className='card-footer text-muted p-0'>
+            <div className='card-footer text-muted px-0'>
                 {this.renderRow('Total', totalReferences, totalFaults)}
             </div>
         );

@@ -1,27 +1,28 @@
-import $ from 'jquery';
-
 /**
  * Loads memReferences from the given file
  * @param {function} setMemReferences - the callback function to be called on completion of ajax request
  */
 export function loadMemReferences(setMemReferences) {
-    const fileName = document.getElementById('inputFileName').value;
-    const filePath = './inputs/' + fileName;
-    $.get(filePath, function(memReferences, status) {
-        setMemReferences(memReferences, status); 
-    }, 'text');
+    const file = document.getElementById('inputFileName').files[0];
+    if (typeof(file) === 'undefined') {
+        return;
+    }
+    const reader = new FileReader();
+    reader.readAsText(file, 'UTF-8');
+    reader.onload = function (event) {
+        const memReferences = event.target.result;
+        setMemReferences(memReferences);
+    }
+    reader.onerror = function (event) {
+        alert('Failed to load file.');
+    }
 };
 
 /**
  * Callback function that sets the memReferences variable in App's state
  * @param {string} memReferences - the memory references loaded from the file
- * @param {string} status - the status of the ajax request that calls this function
  */
-export function setMemReferences(memReferences, status) {
-    if (status === 'success') {
-        memReferences = memReferences.split('\n');
-        this.setState({ memReferences : memReferences });
-    } else {
-        alert('The requested file does not exist');
-    }
+export function setMemReferences(memReferences) {
+    memReferences = memReferences.split('\n');
+    this.setState({ memReferences : memReferences });
 };
