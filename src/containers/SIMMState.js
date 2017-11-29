@@ -4,7 +4,7 @@ import MemReferenceRow from './MemReferenceRow';
 import MemState from './MemState';
 
 import FrameTable from '../utils/FrameTable';
-import { undoReference, nextReference, runToNextFault } from '../utils/buttonControl';
+import { undoReference, nextReference, runToNextFault, runToLastReference } from '../utils/buttonControl';
 
 /**
  * Renders the memory management simulator's state.
@@ -35,6 +35,7 @@ class SIMMState extends Component {
         this.undoReference = undoReference.bind(this);
         this.nextReference = nextReference.bind(this);
         this.runToNextFault = runToNextFault.bind(this);
+        this.runToLastReference = runToLastReference.bind(this);
     };
 
     /**
@@ -73,6 +74,7 @@ class SIMMState extends Component {
                     onUndo={this.undoReference}
                     onNextReference={this.nextReference}
                     onNextFault={this.runToNextFault}
+                    onLastReference={this.runToLastReference}
                 />
                 <MemState 
                     pageTable={this.state.swapSpace[this.state.currentProcess]} 

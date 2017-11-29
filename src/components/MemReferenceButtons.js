@@ -25,7 +25,7 @@ class MemReferenceButtons extends Component {
                 {this.renderButton('Next Step', this.props.onNextStep)}
                 {this.renderButton('Next Reference', this.props.onNextReference)}
                 {this.renderButton('Next Fault', this.props.onNextFault)}
-                {this.renderButton('Last Reference', this.props.onEnd)}
+                {this.renderButton('Last Reference', this.props.onLastReference)}
             </div>
         );
     };

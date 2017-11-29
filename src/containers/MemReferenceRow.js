@@ -20,6 +20,7 @@ class MemReferenceRow extends Component {
                     onUndo={this.props.onUndo}
                     onNextReference={this.props.onNextReference}
                     onNextFault={this.props.onNextFault}
+                    onLastReference={this.props.onLastReference}
                 />
             </div>
         );

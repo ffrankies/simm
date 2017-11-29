@@ -132,3 +132,34 @@ export function runToNextFault() {
         frameTable : newState[4]
     });
 };
+
+/**
+ * Moves references forward until the last reference.
+ * @since v0.0.1
+ */
+export function runToLastReference() {
+    var newState = [];
+    const state = this.state;
+    do {
+        const currentState = goToNextReference(state, this.props);
+        if (currentState.length === 0) {
+           break;
+        }
+        newState = currentState;
+        state.currentReference = newState[0];
+        state.currentProcess = newState[1];
+        state.currentPage = newState[2];
+        state.swapSpace = newState[3];
+        state.frameTable = newState[4];
+    } while (true);
+    if (newState.length === 0) {
+        return;
+    }
+    this.setState({ 
+        currentReference : newState[0],
+        currentProcess : newState[1],
+        currentPage : newState[2],
+        swapSpace : newState[3],
+        frameTable : newState[4]
+    });
+};
