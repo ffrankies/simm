@@ -15,7 +15,11 @@ class PageTableDisplay extends Component {
             pageList = <ul className='list-group list-group-flush'></ul>;
         } else {
             const pages = this.props.pageTable.pageList.map((page) => 
-                <li className='list-group-item p-1' key={page.pageNumber.toString()}>
+                <li 
+                    className='list-group-item p-1' 
+                    key={page.pageNumber.toString()}
+                    style={{background : this.props.colorGenerator.getColor(page.processNumber)}}
+                >
                     <div className='row w-100'>
                         <div className='col col-sm-6'>{page.pageNumber}</div>
                         <div className='col col-sm-6'> 

@@ -3,11 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "color-convert": "^1.9.1",
     "fs": "0.0.1-security",
     "gh-pages": "^1.1.0",
     "jquery": "^3.2.1",
     "react": "^16.1.1",
     "react-dom": "^16.1.1",
+    "react-native": "^0.50.4",
+    "react-native-color-picker": "^0.4.0",
     "react-scripts": "1.0.17"
   },
   "scripts": {

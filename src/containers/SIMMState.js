@@ -4,6 +4,7 @@ import MemReferenceRow from './MemReferenceRow';
 import MemState from './MemState';
 
 import FrameTable from '../utils/FrameTable';
+import ColorGenerator from '../utils/ColorGenerator';
 import { undoReference, nextReference, runToNextFault, runToLastReference } from '../utils/buttonControl';
 
 /**
@@ -23,7 +24,8 @@ class SIMMState extends Component {
             currentProcess : 'N/A',
             currentPage : 'N/A',
             swapSpace : {},
-            frameTable : new FrameTable()
+            frameTable : new FrameTable(),
+            colorGenerator : new ColorGenerator()
         };
         this.bindFunctions();
     };
@@ -57,7 +59,8 @@ class SIMMState extends Component {
             currentProcess : 'N/A',
             currentPage : 'N/A',
             swapSpace : {},
-            frameTable : new FrameTable()
+            frameTable : new FrameTable(),
+            colorGenerator : new ColorGenerator()
         });
     };
 
@@ -80,6 +83,7 @@ class SIMMState extends Component {
                     pageTable={this.state.swapSpace[this.state.currentProcess]} 
                     frameTable={this.state.frameTable} 
                     swapSpace={this.state.swapSpace}
+                    colorGenerator={this.state.colorGenerator}
                 />
             </div>
         );

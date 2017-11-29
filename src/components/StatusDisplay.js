@@ -18,7 +18,11 @@ class StatusDisplay extends Component {
         } else {
             const pageTables = swapSpaceKeys.map((key) => this.props.swapSpace[key]);
             const pages = pageTables.map((pageTable) => 
-                <li className='list-group-item p-1' key={pageTable.processNumber.toString()}>
+                <li 
+                    className='list-group-item p-1' 
+                    key={pageTable.processNumber.toString()}
+                    style={{background : this.props.colorGenerator.getColor(pageTable.processNumber)}}
+                >
                     {this.renderRow(pageTable.processNumber, pageTable.numReferences, pageTable.numPageFaults)}
                 </li>
             );

@@ -11,9 +11,9 @@ class MemState extends Component {
     render() {
         return (
             <div className='row mt-3'>
-                <StatusDisplay swapSpace={this.props.swapSpace} />
-                <PageTableDisplay pageTable={this.props.pageTable} />
-                <FrameTableDisplay frameTable={this.props.frameTable} />
+                <StatusDisplay swapSpace={this.props.swapSpace} colorGenerator={this.props.colorGenerator} />
+                <PageTableDisplay pageTable={this.props.pageTable} colorGenerator={this.props.colorGenerator} />
+                <FrameTableDisplay frameTable={this.props.frameTable} colorGenerator={this.props.colorGenerator} />
             </div>
         );
     };

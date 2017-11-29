@@ -12,7 +12,11 @@ class FrameTableDisplay extends Component {
      */
     renderFrameTable() {
         const frames = this.props.frameTable.frameList.map((frame) => 
-            <li className='list-group-item p-1' key={frame.frameNumber.toString()}>
+            <li 
+                className='list-group-item p-1' 
+                key={frame.frameNumber.toString()}
+                style={{background : this.props.colorGenerator.getColor(frame.processNumber)}}
+            >
                 {this.renderFrame(frame.frameNumber, frame)}
             </li>
         );
