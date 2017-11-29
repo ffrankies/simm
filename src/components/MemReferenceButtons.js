@@ -11,7 +11,7 @@ class MemReferenceButtons extends Component {
      * @param {function} fun - the onClick function
      */
     renderButton(text, fun) {
-        return <button type='button' className='btn btn-primary w-75' onClick={fun}>{text}</button>;
+        return <button type='button' className='btn btn-dark w-75' onClick={fun}>{text}</button>;
     };
 
     /**
@@ -19,16 +19,13 @@ class MemReferenceButtons extends Component {
      */
     renderButtons() {
         return (
-            <div className='row'>
-                <div className='col col-sm-4 text-right'>
-                    {this.renderButton('Undo', this.props.onUndo)}
-                </div>
-                <div className='col col-sm-4 text-right'>
-                    {this.renderButton('Next Reference', this.props.onNext)}
-                </div>
-                <div className='col col-sm-4 text-right'>
-                    {this.renderButton('Run to Next Fault', this.props.onNextFault)}
-                </div>
+            <div className='btn-group' role='group' aria-label='control-buttons'>
+                {this.renderButton('Reset', this.props.onReset)}
+                {this.renderButton('Undo', this.props.onUndo)}
+                {this.renderButton('Next Step', this.props.onNextStep)}
+                {this.renderButton('Next Reference', this.props.onNextReference)}
+                {this.renderButton('Next Fault', this.props.onNextFault)}
+                {this.renderButton('Last Reference', this.props.onEnd)}
             </div>
         );
     };
@@ -38,7 +35,7 @@ class MemReferenceButtons extends Component {
      */
     render() {
         return (
-            <div className='col col-md-8 align-items-center'>
+            <div className='col col-md-8 text-right'>
                 {this.renderButtons()}
             </div>
         );
