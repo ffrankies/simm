@@ -13,22 +13,47 @@ class FrameTableDisplay extends Component {
     renderFrameTable() {
         const frames = this.props.frameTable.frameList.map((frame) => 
             <li className='list-group-item p-1' key={frame.frameNumber.toString()}>
-                <div className='row w-100'>
-                    <div className='col col-sm-2'>{frame.frameNumber}</div>
-                    <div className='col col-sm-4'> 
-                        Process <span className='badge badge-dark'>{frame.processNumber}</span>
-                    </div>
-                    <div className='col col-sm-3'> 
-                        Page <span className='badge badge-dark'>{frame.pageNumber}</span>
-                    </div>
-                    <div className='col col-sm-3'>
-                        Clock <span className='badge badge-dark'>{frame.clock}</span>
-                    </div>
-                </div>
+                {this.renderFrame(frame.frameNumber, frame)}
             </li>
         );
         const frameList = <ul className='list-group list-group-flush'>{frames}</ul>;
         return frameList;
+    };
+    
+    /**
+     * Renders the victim frame from the last fault in the card footer
+     * @return {div} total
+     */
+    renderVictimFrame() {
+        const victim = this.props.frameTable.victim;
+        return (
+            <div className='card-footer text-muted px-2'>
+                {this.renderFrame('Victim', victim)}
+            </div>
+        );
+    };
+    
+    /**
+     * Renders a single frame.
+     * @param {string} id - either the frame number, or a text identifier
+     * @param {Frame} frame - the frame to render
+     * @return {div} row - the row containing the provided information
+     */
+    renderFrame(id, frame) {
+        return (
+            <div className='row'>
+                <div className='col col-sm-2'>{id}</div>
+                <div className='col col-sm-4'> 
+                    Process <span className='badge badge-dark'>{frame.processNumber}</span>
+                </div>
+                <div className='col col-sm-3'> 
+                    Page <span className='badge badge-dark'>{frame.pageNumber}</span>
+                </div>
+                <div className='col col-sm-3'>
+                    Clock <span className='badge badge-dark'>{frame.clock}</span>
+                </div>
+            </div>
+        );
     };
 
     /**
@@ -40,6 +65,7 @@ class FrameTableDisplay extends Component {
                 <div className='card text-center'>
                     <div className='card-header'>Frame Table</div>
                     {this.renderFrameTable()}
+                    {this.renderVictimFrame()}
                 </div>
             </div>
         );

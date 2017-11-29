@@ -37,15 +37,16 @@ class FileInput extends Component {
                     Memory Reference File:
                 </label>
                 <div className='col'>
-                    <label class='custom-file'>
-                        <input type='file' id='inputFileName' class='custom-file-input' onChange={this.handleClick} />
-                        <span class='custom-file-control'></span>
+                    <label className='custom-file'>
+                        <input 
+                            type='file' 
+                            id='inputFileName' 
+                            className='custom-file-input' 
+                            onChange={this.handleClick} 
+                        />
+                        <span className='custom-file-control'></span>
                     </label>
-                    {/* <input type='file' className='form-control' id='inputFileName' placeholder='input3a.data' /> */}
                 </div>
-                {/* <button type='button' className='btn btn-primary col' onClick={this.handleClick}>
-                    Load Memory References
-                </button> */}
             </div>
         );
     };

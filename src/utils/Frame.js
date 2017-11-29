@@ -19,6 +19,14 @@ class Frame {
     };
 
     /**
+     * Creates a clone of the current frame.
+     * @return {Frame} clone - the clone of the current frame
+     */
+    clone() {
+        return new Frame(this.processNumber, this.frameNumber, this.pageNumber, this.clock);
+    };
+
+    /**
      * Updates the page number that has been loaded into the frame.
      * @param {string} processNumber - the process number that owns the page being loaded into this frame
      * @param {number} pageNumber - the page that has been placed into the frame

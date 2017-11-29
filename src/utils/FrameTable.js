@@ -14,6 +14,7 @@ class FrameTable {
         this.maxSize = 16;
         this.clock = 0;
         this.fillPageTable();
+        this.victim = new Frame('N/A', -1, -1, 0);
     };
 
     /**
@@ -40,6 +41,7 @@ class FrameTable {
                 displacedFrame = this.findLRUFrame();
             }        
         }
+        this.victim = displacedFrame.clone();
         this.frameList[displacedFrame.frameNumber].update(page.processNumber, page.pageNumber, this.clock);
         return displacedFrame;
     };
