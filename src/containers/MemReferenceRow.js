@@ -19,6 +19,7 @@ class MemReferenceRow extends Component {
                     numReferences={this.props.numReferences}
                 />
                 <MemReferenceButtons 
+                    onReset={this.props.onReset}
                     onUndo={this.props.onUndo}
                     onNextReference={this.props.onNextReference}
                     onNextFault={this.props.onNextFault}

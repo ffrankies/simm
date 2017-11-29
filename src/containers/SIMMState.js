@@ -38,6 +38,7 @@ class SIMMState extends Component {
         this.nextReference = nextReference.bind(this);
         this.runToNextFault = runToNextFault.bind(this);
         this.runToLastReference = runToLastReference.bind(this);
+        this.resetSIMMState = this.resetSIMMState.bind(this);
     };
 
     /**
@@ -46,7 +47,7 @@ class SIMMState extends Component {
      */
     componentWillReceiveProps(nextProps) {
         if (nextProps.memReferences != null && nextProps.memReferences.length > 0) {
-            this.resetSIMMState(nextProps);
+            this.resetSIMMState();
         }
     };
     
@@ -76,6 +77,7 @@ class SIMMState extends Component {
                     currentPage={this.state.currentPage}
                     currentReference={this.state.currentReference+1}
                     numReferences={this.props.memReferences.length}
+                    onReset={this.resetSIMMState}
                     onUndo={this.undoReference}
                     onNextReference={this.nextReference}
                     onNextFault={this.runToNextFault}
