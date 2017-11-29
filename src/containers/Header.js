@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import FileInput from './FileInput';
+import FileInput from '../components/FileInput';
 
 /**
  * Header component - displays the app name and allows the user to select a file containing memory references.

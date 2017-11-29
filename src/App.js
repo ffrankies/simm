@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import Header from './components/Header';
+import Header from './containers/Header';
 import SIMMState from './containers/SIMMState';
 
 import { loadMemReferences, setMemReferences } from './utils/loadMemReferences';
