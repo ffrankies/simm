@@ -36,18 +36,22 @@ class PageTable {
      * Update the page table with a new page.
      * @param {number} pageNumber - the page with which to update the page table
      * @param {number} frameNumber - the frame number into which the page was inserted
+     * @return {boolean} fault - true if the page that was updated caused a fault
      */
     update(pageNumber, frameNumber) {
         if (pageNumber === -1) {
-            return;
+            return false;
         }
+        var fault = false;
         if (frameNumber !== -1) {
             this.numReferences++;
             if (frameNumber !== this.pageList[pageNumber].frameNumber) {
                 this.numPageFaults++;
+                fault = true;
             }
         }
         this.pageList[pageNumber].updateFrame(frameNumber);
+        return fault;
     };
 };
 

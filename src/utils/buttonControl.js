@@ -19,20 +19,35 @@ export function undoReference() {
  * @since v0.0.1
  */
 export function nextReference() {
-    var currentReference = this.state.currentReference + 1;
-    if (currentReference === this.props.memReferences.length) {
-        alert('Reached the last reference - cannot move further');
+    const newState = goToNextReference(this.state, this.props);
+    if (newState.length === 0) {
         return;
     }
-    const [processNum, pageNum] = splitReference(this.props.memReferences, currentReference);
-    const [swapSpace, frameTable] = updateTables(this.state.frameTable, this.state.swapSpace, processNum, pageNum);
     this.setState({ 
-        currentReference : currentReference,
-        currentProcess : processNum,
-        currentPage : pageNum,
-        swapSpace : swapSpace,
-        frameTable : frameTable
+        currentReference : newState[0],
+        currentProcess : newState[1],
+        currentPage : newState[2],
+        swapSpace : newState[3],
+        frameTable : newState[4]
     });
+};
+
+/**
+ * Advances execution logic to the end of the next memory reference.
+ * @param {object} state - the current state of the SIMMState component
+ * @param {object} props - the current properties of the SIMMState component
+ * @return {array} updatedStateParams - [reference, process number, page number, swap space,  frame table, fault].
+ *                                      When the last reference is reached, returns an empty array
+ */
+function goToNextReference(state, props) {
+    var currentReference = state.currentReference + 1;
+    if (currentReference === props.memReferences.length) {
+        alert('Reached the last reference - cannot move further');
+        return [];
+    }
+    const [processNum, pageNum] = splitReference(props.memReferences, currentReference);
+    const [swapSpace, frameTable, fault] = updateTables(state.frameTable, state.swapSpace, processNum, pageNum);
+    return [currentReference, processNum, pageNum, swapSpace, frameTable, fault]
 };
 
 /**
@@ -65,9 +80,9 @@ function updateTables(frameTable, swapSpace, processNumber, pageNumber) {
     const updatedFrameTable = frameTable;
     const displacedFrame = updatedFrameTable.update(page);
     updatedPageTable.update(displacedFrame.pageNumber, -1);
-    updatedPageTable.update(pageNumber, displacedFrame.frameNumber);
+    const fault = updatedPageTable.update(pageNumber, displacedFrame.frameNumber);
     updatedSwapSpace[processNumber] = updatedPageTable
-    return [updatedSwapSpace, updatedFrameTable];
+    return [updatedSwapSpace, updatedFrameTable, fault];
 };
 
 /**
@@ -92,5 +107,28 @@ function getPageTable(processNumber, swapSpace) {
  * @since v0.0.1
  */
 export function runToNextFault() {
-    alert('This function has not yet been implemented')
+    var newState = [];
+    const state = this.state;
+    do {
+        const currentState = goToNextReference(state, this.props);
+        if (currentState.length === 0) {
+           break;
+        }
+        newState = currentState;
+        state.currentReference = newState[0];
+        state.currentProcess = newState[1];
+        state.currentPage = newState[2];
+        state.swapSpace = newState[3];
+        state.frameTable = newState[4];
+    } while (newState[5] !== true);
+    if (newState.length === 0) {
+        return;
+    }
+    this.setState({ 
+        currentReference : newState[0],
+        currentProcess : newState[1],
+        currentPage : newState[2],
+        swapSpace : newState[3],
+        frameTable : newState[4]
+    });
 };
