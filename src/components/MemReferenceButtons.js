@@ -35,7 +35,7 @@ class MemReferenceButtons extends Component {
      */
     render() {
         return (
-            <div className='col col-md-8 text-right'>
+            <div className='col col-md-7 text-right'>
                 {this.renderButtons()}
             </div>
         );

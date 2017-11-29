@@ -15,6 +15,8 @@ class MemReferenceRow extends Component {
                 <MemReferenceDisplay 
                     currentProcess={this.props.currentProcess}
                     currentPage={this.props.currentPage}
+                    currentReference={this.props.currentReference}
+                    numReferences={this.props.numReferences}
                 />
                 <MemReferenceButtons 
                     onUndo={this.props.onUndo}

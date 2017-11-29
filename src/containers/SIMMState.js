@@ -74,6 +74,8 @@ class SIMMState extends Component {
                 <MemReferenceRow 
                     currentProcess={this.state.currentProcess}
                     currentPage={this.state.currentPage}
+                    currentReference={this.state.currentReference+1}
+                    numReferences={this.props.memReferences.length}
                     onUndo={this.undoReference}
                     onNextReference={this.nextReference}
                     onNextFault={this.runToNextFault}
