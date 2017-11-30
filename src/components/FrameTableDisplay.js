@@ -7,15 +7,35 @@ import React, { Component } from 'react';
  */
 class FrameTableDisplay extends Component {
     /**
+     * Determines the class of the list item.
+     * @param {frame} frame is the frame to be rendered in the list item
+     * @return {object} listStyle - the style to be applied to the list item
+     */
+    listItemStyle(frame) {
+        var listStyle;
+        if (this.props.frameTable.lastAccessed === frame.frameNumber) {
+            listStyle = {
+                background : this.props.colorGenerator.getColor(frame.processNumber),
+                border : '2px solid black'
+            }
+        } else {
+            listStyle = {
+                background : this.props.colorGenerator.getColor(frame.processNumber)
+            }
+        }
+        return listStyle;
+    };
+
+    /**
      * Renders the list of frames in the frame table.
      * @return {ul} frameList - the list of frames in the frame table
      */
     renderFrameTable() {
         const frames = this.props.frameTable.frameList.map((frame) => 
             <li 
-                className='list-group-item p-1' 
+                className='list-group-item p1' 
                 key={frame.frameNumber.toString()}
-                style={{background : this.props.colorGenerator.getColor(frame.processNumber)}}
+                style={this.listItemStyle(frame)}
             >
                 {this.renderFrame(frame.frameNumber, frame)}
             </li>

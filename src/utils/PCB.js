@@ -22,6 +22,8 @@ class PCB {
         this.numReferences = 0;
         /** The number of faults caused by all the pages in the page table */
         this.numPageFaults = 0;
+        /** The page number of the last accessed page */
+        this.lastAccessed = -1;
     };
 
     /**
@@ -57,7 +59,29 @@ class PCB {
             }
         }
         this.pageTable[pageNumber].updateFrame(frameNumber);
+        this.lastAccessed = pageNumber;
         return fault;
+    };
+
+    /**
+     * Determines the class of the list item.
+     * @param {page} page - is the page to be rendered in the list item
+     * @param {ColorGenerator} colorGenerator - the color generator for color-coding the page table
+     * @return {object} listStyle - the style to be applied to the list item
+     */
+    listItemStyle(page, colorGenerator) {
+        var listStyle;
+        if (this.lastAccessed === page.pageNumber) {
+            listStyle = {
+                background : colorGenerator.getColor(this.processNumber),
+                border : '2px solid black'
+            }
+        } else {
+            listStyle = {
+                background : colorGenerator.getColor(this.processNumber)
+            }
+        }
+        return listStyle;
     };
 
     /**
@@ -70,7 +94,7 @@ class PCB {
             <li 
                 className='list-group-item p-1' 
                 key={page.pageNumber.toString()}
-                style={{background : colorGenerator.getColor(page.processNumber)}}
+                style={this.listItemStyle(page, colorGenerator)}
             >
                 <div className='row w-100'>
                     <div className='col col-sm-6'>{page.pageNumber}</div>

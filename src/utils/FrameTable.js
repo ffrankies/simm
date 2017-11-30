@@ -19,6 +19,8 @@ class FrameTable {
         this.fillPageTable();
         /** The victim frame */
         this.victim = new Frame('N/A', -1, -1, 0);
+        /** The index of the last frame that was accessed */
+        this.lastAccessed = -1;
     };
 
     /**
@@ -59,6 +61,7 @@ class FrameTable {
             }        
         }
         this.victim = displacedFrame.clone();
+        this.lastAccessed = displacedFrame.frameNumber;
         this.frameList[displacedFrame.frameNumber].update(page.processNumber, page.pageNumber, this.clock);
         return this.victim;
     };
