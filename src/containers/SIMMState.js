@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import MemReferenceRow from './MemReferenceRow';
 import MemState from './MemState';
+import SwapSpaceDisplay from '../components/SwapSpaceDisplay';
 
 import SwapSpace from '../utils/SwapSpace';
 import FrameTable from '../utils/FrameTable';
@@ -90,6 +91,7 @@ class SIMMState extends Component {
                     swapSpace={this.state.swapSpace}
                     colorGenerator={this.state.colorGenerator}
                 />
+                <SwapSpaceDisplay swapSpace={this.state.swapSpace} colorGenerator={this.state.colorGenerator} />
             </div>
         );
     };

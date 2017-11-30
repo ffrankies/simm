@@ -10,39 +10,28 @@ class PageTableDisplay extends Component {
      * Renders the list of pages in the page table.
      */
     renderPageTable() {
-        var pageList;
-        if (this.props.pageTable === undefined) { // Couldn't find a better way to do this check yet
-            pageList = <ul className='list-group list-group-flush'></ul>;
-        } else {
-            const pages = this.props.pageTable.pageList.map((page) => 
-                <li 
-                    className='list-group-item p-1' 
-                    key={page.pageNumber.toString()}
-                    style={{background : this.props.colorGenerator.getColor(page.processNumber)}}
-                >
-                    <div className='row w-100'>
-                        <div className='col col-sm-6'>{page.pageNumber}</div>
-                        <div className='col col-sm-6'> 
-                            Frame <span className='badge badge-dark'>{page.frameNumber}</span>
-                        </div>
-                    </div>
-                </li>
-            );
-            pageList = <ul className='list-group list-group-flush'>{pages}</ul>;
-        }
-        return pageList;
+        const emptyPageTableCard = (
+            <div className='card text-center'>
+                <div className='card-header'>
+                    Page Table - Process <span className='badge badge-dark'>'N/A'</span>
+                </div>
+                <ul className='list-group list-group-flush'></ul>
+            </div>
+        )
+        if (this.props.pageTable === undefined) {
+            return emptyPageTableCard;
+        } 
+        return this.props.pageTable.renderPageTableCard(this.props.colorGenerator);
     };
 
     /**
      * Renders the page table. The page table is to passed to it in props.
+     * @return {div} columnDiv - the column div containing the page table
      */
     render() {
         return (
             <div className='col col-md-3'>
-                <div className='card text-center'>
-                    <div className='card-header'>Page Table</div>
-                    {this.renderPageTable()}
-                </div>
+                {this.renderPageTable()}
             </div>
         );
     };

@@ -1,3 +1,4 @@
+import React from 'react';
 import Page from './Page';
 
 /**
@@ -8,13 +9,18 @@ import Page from './Page';
 class PCB {
     /**
      * Constructs a new, empty page table that grows with each page reference.
-     * @param {string} processNumber - the number of process that owns this page table
+     * @param {number} processNumber - the number of process that owns this page table
      */
     constructor(processNumber) {
+        /** The number of the process that owns this PCB */
         this.processNumber = processNumber;
-        this.pageList = [];
+        /** The page table for the process that owns this PCB */
+        this.pageTable = [];
+        /** The largest index into the page table */
         this.numPages = -1; // -1 when there are no pages in the page table
+        /** The number of references made for all pages in the page table */
         this.numReferences = 0;
+        /** The number of faults caused by all the pages in the page table */
         this.numPageFaults = 0;
     };
 
@@ -27,9 +33,9 @@ class PCB {
         while (pageNumber > this.numPages) {
             this.numPages++;
             const emptyPage = new Page(this.processNumber, this.numPages);
-            this.pageList.push(emptyPage);
+            this.pageTable.push(emptyPage);
         }
-        return this.pageList[pageNumber];
+        return this.pageTable[pageNumber];
     };
 
     /**
@@ -45,13 +51,53 @@ class PCB {
         var fault = false;
         if (frameNumber !== -1) {
             this.numReferences++;
-            if (frameNumber !== this.pageList[pageNumber].frameNumber) {
+            if (frameNumber !== this.pageTable[pageNumber].frameNumber) {
                 this.numPageFaults++;
                 fault = true;
             }
         }
-        this.pageList[pageNumber].updateFrame(frameNumber);
+        this.pageTable[pageNumber].updateFrame(frameNumber);
         return fault;
+    };
+
+    /**
+     * Renders the page table as a list of pages
+     * @param {ColorGenerator} colorGenerator - the color generator for color-coding the page table
+     * @return {div} pageTableList - the list of page tables
+     */
+    renderPageTable(colorGenerator) {
+        const pages = this.pageTable.map((page) => 
+            <li 
+                className='list-group-item p-1' 
+                key={page.pageNumber.toString()}
+                style={{background : colorGenerator.getColor(page.processNumber)}}
+            >
+                <div className='row w-100'>
+                    <div className='col col-sm-6'>{page.pageNumber}</div>
+                    <div className='col col-sm-6'> 
+                        Frame <span className='badge badge-dark'>{page.frameNumber}</span>
+                    </div>
+                </div>
+            </li>
+        );
+        return <ul className='list-group list-group-flush'>{pages}</ul>;
+    };
+
+    /**
+     * Renders the list of pages in the page table, wrapped in a card.
+     * @param {ColorGenerator} colorGenerator - the color generator for color-coding the page table
+     * @return {div} pageTableCard - the page table as a Bootstrap Card div
+     */
+    renderPageTableCard(colorGenerator) {
+        const pageTableCard = (
+            <div className='card text-center'>
+                <div className='card-header'>
+                    Page Table - Process <span className='badge badge-dark'>{this.processNumber}</span>
+                </div>
+                {this.renderPageTable(colorGenerator)}
+            </div>
+        )
+        return pageTableCard;
     };
 };
 

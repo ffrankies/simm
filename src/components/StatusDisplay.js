@@ -35,7 +35,6 @@ class StatusDisplay extends Component {
      * @return {div} total
      */
     renderTotalStatus() {
-        const swapSpaceKeys = Object.keys(this.props.swapSpace);
         const pageTables = this.props.swapSpace.processNumbers.map((key) => this.props.swapSpace.get(key));
         var totalReferences = 0, totalFaults = 0;
         pageTables.forEach((pageTable) => {
