@@ -10,11 +10,28 @@ class FrameTable {
      * Constructs a new, empty frame table.
      */
     constructor() {
+        /** The frame list in the frame table */
         this.frameList = [];
+        /** The size of the frame list */
         this.maxSize = 16;
+        /** The current LRU Clock value */
         this.clock = 0;
         this.fillPageTable();
+        /** The victim frame */
         this.victim = new Frame('N/A', -1, -1, 0);
+    };
+
+    /**
+     * Returns a clone of this frame table object.
+     * @return {FrameTable} clone - the clone of this frame table
+     */
+    clone() {
+        const frameTableClone = new FrameTable();
+        frameTableClone.frameList = this.frameList;
+        frameTableClone.maxSize = this.maxSize;
+        frameTableClone.clock = this.clock;
+        frameTableClone.victim = this.victim;
+        return frameTableClone;
     };
 
     /**
@@ -43,7 +60,7 @@ class FrameTable {
         }
         this.victim = displacedFrame.clone();
         this.frameList[displacedFrame.frameNumber].update(page.processNumber, page.pageNumber, this.clock);
-        return displacedFrame;
+        return this.victim;
     };
     
     /**

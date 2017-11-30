@@ -1,5 +1,3 @@
-import PageTable from './PageTable';
-
 /**
  * Provides utility methods for the buttons that control memory references.
  * @since v0.0.1
@@ -75,32 +73,31 @@ function splitReference(memReferences, referenceNumber) {
  * @return {array} [updated swap space, updated frame table]
  */
 function updateTables(frameTable, swapSpace, processNumber, pageNumber) {
-    const [updatedPageTable, updatedSwapSpace] = getPageTable(processNumber, swapSpace);
-    const page = updatedPageTable.insert(pageNumber);
-    const updatedFrameTable = frameTable;
+    const updatedSwapSpace = swapSpace.clone();
+    const updatedFrameTable = frameTable.clone();
+    const page = updatedSwapSpace.insertPage(processNumber, pageNumber);
     const displacedFrame = updatedFrameTable.update(page);
-    updatedPageTable.update(displacedFrame.pageNumber, -1);
-    const fault = updatedPageTable.update(pageNumber, displacedFrame.frameNumber);
-    updatedSwapSpace[processNumber] = updatedPageTable
+    updatedSwapSpace.updateDisplacedPage(displacedFrame.processNumber, displacedFrame.pageNumber);
+    const fault = updatedSwapSpace.updateAllocatedPage(processNumber, pageNumber, displacedFrame.frameNumber);
     return [updatedSwapSpace, updatedFrameTable, fault];
 };
 
-/**
- * Updates the frame table and the page table for the current process.
- * @since v0.0.1
- * @param {string} processNumber - the current process' number
- * @param {object} swapSpace - the swap space for this run, contains all the page tables
- * @return {array} [updated page table, updated swap space]
- */
-function getPageTable(processNumber, swapSpace) {
-    const newSwapSpace = swapSpace;
-    var pageTable;
-    if (!(processNumber in newSwapSpace)) {
-        newSwapSpace[processNumber] = new PageTable(processNumber);
-    }
-    pageTable = newSwapSpace[processNumber];
-    return [pageTable, newSwapSpace];
-};
+// /**
+//  * Updates the frame table and the page table for the current process.
+//  * @since v0.0.1
+//  * @param {string} processNumber - the current process' number
+//  * @param {object} swapSpace - the swap space for this run, contains all the page tables
+//  * @return {array} [updated page table, updated swap space]
+//  */
+// function getPageTable(processNumber, swapSpace) {
+//     const newSwapSpace = swapSpace;
+//     var pageTable;
+//     if (!(processNumber in newSwapSpace)) {
+//         newSwapSpace[processNumber] = new PageTable(processNumber);
+//     }
+//     pageTable = newSwapSpace[processNumber];
+//     return [pageTable, newSwapSpace];
+// };
 
 /**
  * Moves references forward until the next fault occurs.

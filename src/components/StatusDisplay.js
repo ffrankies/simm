@@ -12,11 +12,10 @@ class StatusDisplay extends Component {
      */
     renderStatus() {
         var pageList;
-        const swapSpaceKeys = Object.keys(this.props.swapSpace);
-        if (swapSpaceKeys.length === 0) { // If swap space is empty
+        if (this.props.swapSpace.numPCBs() === 0) { // If swap space is empty
             pageList = <ul className='list-group list-group-flush'></ul>;
         } else {
-            const pageTables = swapSpaceKeys.map((key) => this.props.swapSpace[key]);
+            const pageTables = this.props.swapSpace.processNumbers.map((key) => this.props.swapSpace.get(key));
             const pages = pageTables.map((pageTable) => 
                 <li 
                     className='list-group-item p-1' 
@@ -37,7 +36,7 @@ class StatusDisplay extends Component {
      */
     renderTotalStatus() {
         const swapSpaceKeys = Object.keys(this.props.swapSpace);
-        const pageTables = swapSpaceKeys.map((key) => this.props.swapSpace[key]);
+        const pageTables = this.props.swapSpace.processNumbers.map((key) => this.props.swapSpace.get(key));
         var totalReferences = 0, totalFaults = 0;
         pageTables.forEach((pageTable) => {
             totalReferences += pageTable.numReferences;

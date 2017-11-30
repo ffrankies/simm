@@ -1,11 +1,11 @@
 import Page from './Page';
 
 /**
- * The Page Table class.
+ * The Process Control Block class.
  * @since v0.0.1
  * @author Frank Wanye
  */
-class PageTable {
+class PCB {
     /**
      * Constructs a new, empty page table that grows with each page reference.
      * @param {string} processNumber - the number of process that owns this page table
@@ -55,4 +55,4 @@ class PageTable {
     };
 };
 
-export default PageTable;
+export default PCB;

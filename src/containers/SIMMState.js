@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import MemReferenceRow from './MemReferenceRow';
 import MemState from './MemState';
 
+import SwapSpace from '../utils/SwapSpace';
 import FrameTable from '../utils/FrameTable';
 import ColorGenerator from '../utils/ColorGenerator';
 import { undoReference, nextReference, runToNextFault, runToLastReference } from '../utils/buttonControl';
@@ -23,7 +24,7 @@ class SIMMState extends Component {
             currentReference : -1,
             currentProcess : 'N/A',
             currentPage : 'N/A',
-            swapSpace : {},
+            swapSpace : new SwapSpace(),
             frameTable : new FrameTable(),
             colorGenerator : new ColorGenerator()
         };
@@ -59,7 +60,7 @@ class SIMMState extends Component {
             currentReference : -1,
             currentProcess : 'N/A',
             currentPage : 'N/A',
-            swapSpace : {},
+            swapSpace : new SwapSpace(),
             frameTable : new FrameTable(),
             colorGenerator : new ColorGenerator()
         });
@@ -84,7 +85,7 @@ class SIMMState extends Component {
                     onLastReference={this.runToLastReference}
                 />
                 <MemState 
-                    pageTable={this.state.swapSpace[this.state.currentProcess]} 
+                    pageTable={this.state.swapSpace.get(this.state.currentProcess)} 
                     frameTable={this.state.frameTable} 
                     swapSpace={this.state.swapSpace}
                     colorGenerator={this.state.colorGenerator}
