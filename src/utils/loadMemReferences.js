@@ -19,10 +19,27 @@ export function loadMemReferences(setMemReferences) {
 };
 
 /**
- * Callback function that sets the memReferences variable in App's state
- * @param {string} memReferences - the memory references loaded from the file
+ * Callback function that sets the memReferences variable in App's state.
+ * @param {string} memReferenceString - the memory references loaded from the file
  */
-export function setMemReferences(memReferences) {
-    memReferences = memReferences.split('\n');
+export function setMemReferences(memReferenceString) {
+    var memReferences = memReferenceString.split('\n');
+    memReferences = sanitizeMemoryRefences(memReferences);
     this.setState({ memReferences : memReferences });
+};
+
+/**
+ * Makes sure that only lines that match the input format are loaded
+ * @param {array} memReferences - the unsanitized memory refences
+ * @return {array} sanitizedMemReferences - the sanitized memory references
+ */
+function sanitizeMemoryRefences(memReferences) {
+    const sanitizedMemReferences = [];
+    const pattern = /P\d+:?\s[01]+/i;
+    for (let reference of memReferences) {
+        if (pattern.test(reference) === true) {
+            sanitizedMemReferences.push(reference);
+        }
+    }
+    return sanitizedMemReferences;
 };
